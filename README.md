@@ -1,2 +1,2 @@
-# postgresql-data
+# postgresql
 Docker container for PostgreSQL
