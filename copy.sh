@@ -6,6 +6,8 @@ if [[ $1 =~ ^[Ff][Rr] ]]; then
 	psql -d dhis2 -U postgres -c "copy attributevalue from '/tmp/fields_values.csv' delimiter ',' csv" > /dev/null
 	psql -d dhis2 -U postgres -c "copy organisationunit from '/tmp/facilities.csv' delimiter ',' csv" > /dev/null
 	psql -d dhis2 -U postgres -c "copy organisationunitattributevalues from '/tmp/organisationunitattributevalues.csv' delimiter ',' csv" > /dev/null
+	psql -d dhis2 -U postgres -c "copy orgunitgroup from '/tmp/orgunitgroup.csv' delimiter ',' csv" > /dev/null
+	psql -d dhis2 -U postgres -c "copy orgunitgroupmembers from '/tmp/orgunitgroupmembers.csv' delimiter ',' csv" > /dev/null
 elif [[ $1 =~ ^[Hh][Ww][Rr] ]]; then
 	#HWR
 	psql -d dhis2 -U postgres -c "copy userinfo from '/tmp/userInfo.csv' delimiter ',' csv" > /dev/null
