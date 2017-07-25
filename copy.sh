@@ -18,4 +18,7 @@ elif [[ $1 =~ ^[Hh][Ww][Rr] ]]; then
 	psql -d dhis2 -U postgres -c "copy userrolemembers from '/tmp/userRoleMembers.csv' delimiter ',' csv" > /dev/null
 	psql -d dhis2 -U postgres -c "copy usermembership from '/tmp/userMembership.csv' delimiter ',' csv" > /dev/null
 	psql -d dhis2 -U postgres -c "copy usersetting from '/tmp/userSetting.csv' delimiter ',' csv" > /dev/null
+elif [[ $1 =~ ^[Xx][Dd][Ss][Ss][Aa][Mm][Pp][Ll][Ee] ]]; then
+	#XDSSample
+	psql -d dhis2 -U postgres -f /tmp/XDSDocTest.sql
 fi
