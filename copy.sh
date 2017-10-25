@@ -45,4 +45,12 @@ elif [[ $1 =~ ^[Dd][Hh][Ii][Ss] ]]; then
     psql -d dhis2 -U postgres -c "copy dataset from '/tmp/dataset.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy datasetelement from '/tmp/datasetelement.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy datasetsource from '/tmp/datasetsource.csv' delimiter ';' csv" > /dev/null
+
+    # DHIS: adding programs	
+    psql -d dhis2 -U postgres -c "copy program from '/tmp/program.csv' delimiter ';' csv" > /dev/null
+    psql -d dhis2 -U postgres -c "copy trackedentityattribute from '/tmp/trackedentityattribute.csv' delimiter ';' csv" > /dev/null
+    psql -d dhis2 -U postgres -c "copy program_attributes from '/tmp/program_attributes.csv' delimiter ';' csv" > /dev/null
+    psql -d dhis2 -U postgres -c "copy program_organisationunits from '/tmp/program_organisationunits.csv' delimiter ';' csv" > /dev/null
+    psql -d dhis2 -U postgres -c "copy programstage from '/tmp/programstage.csv' delimiter ';' csv" > /dev/null
+    psql -d dhis2 -U postgres -c "copy programstagedataelement from '/tmp/programstagedataelement.csv' delimiter ';' csv" > /dev/null
 fi
