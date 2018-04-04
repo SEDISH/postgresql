@@ -22,6 +22,43 @@ elif [[ $1 =~ ^[Xx][Dd][Ss][Ss][Aa][Mm][Pp][Ll][Ee] ]]; then
 	#XDSSample
 	psql -d dhis2 -U postgres -f /tmp/XDSDocTest.sql
 elif [[ $1 =~ ^[Dd][Hh][Ii][Ss] ]]; then
+		# DHIS: deleting dashboard data
+		psql -d dhis2 -U postgres -c "DELETE FROM optionset" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM eventreport_organisationunits" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM eventreport_dataelementdimensions" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM eventreport_attributedimensions" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM trackedentitydataelementdimension" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM trackedentityattributedimension" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM eventreport_columns" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM dashboard_items" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM dashboarditem" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM eventreport" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM relativeperiods" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM dashboard" > /dev/null
+
+		# DHIS: deleting default programs
+		psql -d dhis2 -U postgres -c "DELETE FROM programstagedataelement" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM trackedentitydatavalue" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM programstageinstance" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM eventreport_columns" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM eventreport_organisationunits" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM eventreport" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM programstage" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM program_organisationunits" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM program_attributes" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM trackedentityattributevalue" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM trackedentityattribute" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM programinstance" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM program" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM trackedentityinstance" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM trackedentity" > /dev/null
+		# DHIS: deleting default data elements & data sets
+		psql -d dhis2 -U postgres -c "DELETE FROM datasetsource" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM datasetelement" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM dataset" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM datavalue" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM datavalueaudit" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM dataelement" > /dev/null
     # DHIS: deleting default category
     psql -d dhis2 -U postgres -c "DELETE FROM categories_categoryoptions" > /dev/null
     psql -d dhis2 -U postgres -c "DELETE FROM categoryoptioncombos_categoryoptions" > /dev/null
@@ -40,17 +77,31 @@ elif [[ $1 =~ ^[Dd][Hh][Ii][Ss] ]]; then
     psql -d dhis2 -U postgres -c "copy categorycombos_categories from '/tmp/categorycombos_categories.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy categoryoptioncombos_categoryoptions from '/tmp/categoryoptioncombos_categoryoptions.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy categories_categoryoptions from '/tmp/categories_categoryoptions.csv' delimiter ';' csv" > /dev/null
-    # DHIS: adding data elements & data sets
-    psql -d dhis2 -U postgres -c "copy dataelement from '/tmp/dataelement.csv' delimiter ';' csv" > /dev/null
-    psql -d dhis2 -U postgres -c "copy dataset from '/tmp/dataset.csv' delimiter ';' csv" > /dev/null
-    psql -d dhis2 -U postgres -c "copy datasetelement from '/tmp/datasetelement.csv' delimiter ';' csv" > /dev/null
-    psql -d dhis2 -U postgres -c "copy datasetsource from '/tmp/datasetsource.csv' delimiter ';' csv" > /dev/null
-
-    # DHIS: adding programs	
+		# DHIS: adding data elements & data sets
+		psql -d dhis2 -U postgres -c "copy dataelement from '/tmp/dataelement.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy dataset from '/tmp/dataset.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy datasetelement from '/tmp/datasetelement.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy datasetsource from '/tmp/datasetsource.csv' delimiter ';' csv" > /dev/null
+    # DHIS: adding programs
+		psql -d dhis2 -U postgres -c "copy trackedentity from '/tmp/trackedentity.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy program from '/tmp/program.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy trackedentityattribute from '/tmp/trackedentityattribute.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy program_attributes from '/tmp/program_attributes.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy program_organisationunits from '/tmp/program_organisationunits.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy programstage from '/tmp/programstage.csv' delimiter ';' csv" > /dev/null
     psql -d dhis2 -U postgres -c "copy programstagedataelement from '/tmp/programstagedataelement.csv' delimiter ';' csv" > /dev/null
+		# DHIS: adding dashboard data
+		psql -d dhis2 -U postgres -c "copy dashboard from '/tmp/dashboard.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy relativeperiods from '/tmp/relativeperiods.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy eventreport from '/tmp/eventreport.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy dashboarditem from '/tmp/dashboarditem.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy dashboard_items from '/tmp/dashboard_items.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy optionset from '/tmp/optionset.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy trackedentitydataelementdimension from '/tmp/trackedentitydataelementdimension.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy trackedentityattributedimension from '/tmp/trackedentityattributedimension.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy eventreport_columns from '/tmp/eventreport_columns.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy eventreport_attributedimensions from '/tmp/eventreport_attributedimensions.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy eventreport_dataelementdimensions from '/tmp/eventreport_dataelementdimensions.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy eventreport_organisationunits from '/tmp/eventreport_organisationunits.csv' delimiter ';' csv" > /dev/null
+
 fi
