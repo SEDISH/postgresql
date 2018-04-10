@@ -22,6 +22,15 @@ elif [[ $1 =~ ^[Xx][Dd][Ss][Ss][Aa][Mm][Pp][Ll][Ee] ]]; then
 	#XDSSample
 	psql -d dhis2 -U postgres -f /tmp/XDSDocTest.sql
 elif [[ $1 =~ ^[Dd][Hh][Ii][Ss] ]]; then
+		# DHIS: deleting translations data
+		psql -d dhis2 -U postgres -c "DELETE FROM categoryoptiontranslations" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM trackedentityattributetranslations" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM programstagetranslations" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM programtranslations" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM dataelementtranslations" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM datasettranslations" > /dev/null
+		psql -d dhis2 -U postgres -c "DELETE FROM objecttranslation" > /dev/null
+
 		# DHIS: deleting dashboard data
 		psql -d dhis2 -U postgres -c "DELETE FROM optionset" > /dev/null
 		psql -d dhis2 -U postgres -c "DELETE FROM eventreport_organisationunits" > /dev/null
@@ -103,5 +112,13 @@ elif [[ $1 =~ ^[Dd][Hh][Ii][Ss] ]]; then
 		psql -d dhis2 -U postgres -c "copy eventreport_attributedimensions from '/tmp/eventreport_attributedimensions.csv' delimiter ';' csv" > /dev/null
 		psql -d dhis2 -U postgres -c "copy eventreport_dataelementdimensions from '/tmp/eventreport_dataelementdimensions.csv' delimiter ';' csv" > /dev/null
 		psql -d dhis2 -U postgres -c "copy eventreport_organisationunits from '/tmp/eventreport_organisationunits.csv' delimiter ';' csv" > /dev/null
+		# DHIS: adding translations data
+		psql -d dhis2 -U postgres -c "copy objecttranslation from '/tmp/objecttranslation.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy datasettranslations from '/tmp/datasettranslations.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy dataelementtranslations from '/tmp/dataelementtranslations.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy programtranslations from '/tmp/programtranslations.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy programstagetranslations from '/tmp/programstagetranslations.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy trackedentityattributetranslations from '/tmp/trackedentityattributetranslations.csv' delimiter ';' csv" > /dev/null
+		psql -d dhis2 -U postgres -c "copy categoryoptiontranslations from '/tmp/categoryoptiontranslations.csv' delimiter ';' csv" > /dev/null
 
 fi
