@@ -6,5 +6,8 @@
 
 FROM postgres:9.6-alpine
 
-COPY copy.sh /root/copy.sh
+COPY utils/removeReportFromDhis.sh /root/removeReportFromDhis.sh
+RUN chmod 777 /root/removeReportFromDhis.sh
+
+COPY utils/copy.sh /root/copy.sh
 RUN chmod 777 /root/copy.sh
